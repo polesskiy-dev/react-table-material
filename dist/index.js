@@ -1,15 +1,18 @@
 "use strict";
 import React from 'react';
 import {render} from 'react-dom'
-import {Provider} from 'react-redux'
 import {createStore, applyMiddleware} from 'redux'
 import {combineReducers} from 'redux-immutable'
 import createLogger from 'redux-logger'
 import {fromJS} from 'immutable'
+import createSagaMiddleware from 'redux-saga'
+import {Provider} from 'react-redux'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import dataPending from './reducers/data-pending-reducer'
 import notifications from './reducers/notifications-reducer'
 import items from './reducers/items-reducer'
+import rootSaga from './sagas/root-saga'
 import App from './components/App'
 
 // const CONTENT_ROW_LENGTH = 5;
@@ -34,16 +37,24 @@ const initialState = fromJS({
     }
 });
 
-// create the saga middleware
-//const sagaMiddleware = createSagaMiddleware();
+/** create the saga middleware */
+const sagaMiddleware = createSagaMiddleware();
 
-/* create store and init it by initial formFields, enhance by middleware*/
-const store = createStore(reducer, initialState, applyMiddleware(/*sagaMiddleware, */createLogger()));
+/**
+ * Create store
+ * init it by initial formFields,
+ * enhance by middleware - sagas and logger
+ */
+const store = createStore(reducer, initialState, applyMiddleware(sagaMiddleware, createLogger()));
+
+/** run root saga */
+sagaMiddleware.run(rootSaga);
 
 render(
-//Provider allows us to receive formFields from store of our app (by connect function)
-    <Provider store={store}>
-        <App/>
-    </Provider>,
+    <MuiThemeProvider>
+        <Provider store={store}>
+            <App/>
+        </Provider>
+    </MuiThemeProvider>,
     document.getElementById('app-root')
 );

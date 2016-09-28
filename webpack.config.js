@@ -12,9 +12,6 @@ module.exports = {
     eslint: {
         configFile: './.eslintrc'
     },
-    // babel: {
-    //     babelrc: true
-    // },
     module: {
         // Validate by ESLint before loading
         preLoaders: [
@@ -37,6 +34,7 @@ module.exports = {
 
     plugins: [
         new webpack.NoErrorsPlugin(),
+        //for production
         /*new webpack.optimize.UglifyJsPlugin({
          debug: true,
          minimize: true,

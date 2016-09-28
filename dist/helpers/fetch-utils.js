@@ -36,14 +36,14 @@ export const httpPost = (url, payload, auth) =>
  * @param url
  * @auth auth token
  */
-export const httpGet = (url, auth) =>
-    fetch(url,
-        {
-            method: 'GET',
-            headers: {
-                "Content-type": "application/json",
-                "Authorization": auth
-            },
-        })
-        .then(checkHttpStatus)
-        .then(res => res.json());
+export const httpGet = (/*url, auth*/) =>JSON.parse('[["Lorem","ipsum","dolor","sit","amet,"],["consectetur","adipiscing","elit.","Fusce","eget"],["tincidunt","arcu,","sed","egestas","nibh."],["Nunc","eu","odio","volutpat,","tempus"],["elit","id,","tristique","tortor.","Integer"],["consectetur","suscipit","tellus.","Vivamus","at"],["lectus","non","lacus","porttitor","scelerisque"],["ac","vitae","urna.","Vivamus","et"],["consectetur","mauris.","Etiam","placerat","sollicitudin"],["enim,","ac","egestas","lectus.","Ut."]]')
+    // fetch(url,
+    //     {
+    //         method: 'GET',
+    //         headers: {
+    //             "Content-type": "application/json",
+    //             "Authorization": auth
+    //         },
+    //     })
+    //     .then(checkHttpStatus)
+    //     .then(res => res.json());

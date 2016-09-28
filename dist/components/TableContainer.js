@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
-import * as actions from '../actions/fetch-items-actions'
+import {Table, TableBody, TableHeader, /*TableHeaderColumn,*/ TableRow, TableRowColumn} from 'material-ui/Table';
+import * as actions from '../actions/actions'
 
 const mapStateToProps = (state) => {
     return {
@@ -19,43 +19,36 @@ const mapDispatchToProps = (dispatch) => {
 export default class TableContainer extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            content: []
-        }
-
-        fetch('/content')
-            .then((res)=>res.json())
-            .then((content) => this.setState({content}))
+        props.getItems();
     }
 
     render() {
-        //TODO: migrate to props
-        const {content} = this.state;
+        const items = this.props.items.toJS();
         return (
-            <Table>
-                <TableHeader>
+            <Table
+                selectable={false}
+            >
+                <TableHeader
+                    displaySelectAll={false}
+                >
                     <TableRow>
-                        {content[0]
-                            .map((name, index)=>(
-                                <TableHeaderColumn key={index}>name</TableHeaderColumn>
-                            ))}
+                        {/*{items[0]*/}
+                            {/*.map((name, index)=>(*/}
+                                {/*<TableHeaderColumn key={index}>name</TableHeaderColumn>*/}
+                            {/*))}*/}
                     </TableRow>
                 </TableHeader>
-                <TableBody>
-                    {content
-                        .slice(1, content.length)
+                <TableBody
+                    displayRowCheckbox={false}
+                >
+                    {items
                         .map((rowData, index)=>(
                             <TableRow key={index}>
                                 {rowData.map((value, index)=>(
-                                    <TableHeaderColumn key={index}>value</TableHeaderColumn>
+                                    <TableRowColumn key={index}>{value}</TableRowColumn>
                                 ))}
                             </TableRow>
                         ))}
-                    <TableRow>
-                        <TableRowColumn>1</TableRowColumn>
-                        <TableRowColumn>John Smith</TableRowColumn>
-                        <TableRowColumn>Employed</TableRowColumn>
-                    </TableRow>
                 </TableBody>
             </Table>
         )
