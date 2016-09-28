@@ -4,9 +4,10 @@
   "description": "Simple react redux table panel to fetch and display data from RESR api",
   "main": "index.js",
   "scripts": {
-    "start": "npm run serve | npm run dev",
+    "start": "npm run build && npm run serve | npm run dev",
     "serve": "./node_modules/.bin/http-server -p 8080",
-    "dev": "webpack-dev-server --hot --colors --inline --port 8090"
+    "dev": "webpack-dev-server --hot --colors --inline --port 8090",
+    "build": "webpack --config webpack.config.js --progress --profile"
   },
   "author": "Polesskyi",
   "license": "MIT",
