@@ -1,12 +1,13 @@
 const path = require('path');
 const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
     entry: {
-        bundle: ['./dist/index']
+        bundle: ['./lib/index']
     },
     output: {
-        path: path.resolve('./'),
+        path: path.resolve('./dist'),
         filename: '[name].js'
     },
     eslint: {
@@ -28,12 +29,22 @@ module.exports = {
                 loader: ['babel-loader'],
                 exclude: /node_modules/,
                 query: {}
+            },
+            // LESS
+            {
+                test: /\.(less|css)$/,
+                loader: ExtractTextPlugin.extract(
+                    'style',
+                    'css?modules&importLoaders=1&localIdentName=[name]---[local]---[hash:base64:5]',
+                    'autoprefixer',
+                    'less')
             }
         ]
     },
 
     plugins: [
         new webpack.NoErrorsPlugin(),
+        new ExtractTextPlugin('dist/css/bundle.css'),
         //for production
         /*new webpack.optimize.UglifyJsPlugin({
          debug: true,
