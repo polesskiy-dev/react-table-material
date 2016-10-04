@@ -2,7 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-module.exports = {
+const config = {
     entry: {
         bundle: ['./lib/index']
     },
@@ -33,33 +33,36 @@ module.exports = {
             // LESS
             {
                 test: /\.(less|css)$/,
-                loader: ExtractTextPlugin.extract(
-                    'style',
-                    'css?modules&importLoaders=1&localIdentName=[name]---[local]---[hash:base64:5]',
-                    'autoprefixer',
-                    'less')
+                // loader: ExtractTextPlugin.extract(
+                //     'style',
+                //     'css?modules&importLoaders=1&localIdentName=[name]---[local]---[hash:base64:5]',
+                //     'autoprefixer',
+                //     'less')
+                loader: "style!css!less"
             },
             //webfonts
-            { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&minetype=application/font-woff" },
-            { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" }
+            {
+                test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                loader: "url-loader?limit=10000&minetype=application/font-woff"
+            },
+            {
+                test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                loader: "file-loader"
+            }
         ]
     },
 
     plugins: [
         new webpack.NoErrorsPlugin(),
-        new ExtractTextPlugin('dist/css/bundle.css'),
-        //for production
-        /*new webpack.optimize.UglifyJsPlugin({
-         debug: true,
-         minimize: true,
-         sourceMap: false,
-         output: {
-         comments: false
-         },
-         compressor: {
-         warnings: false
-         }
-         })*/
+        new webpack.DefinePlugin({
+            'process.env': {
+                'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+            }
+        }),
+        // new ExtractTextPlugin('css/bundle.css'),
+        // for production
+
+
     ],
 
     node: {
@@ -76,3 +79,21 @@ module.exports = {
         extensions: ['', '.js', '.jsx']
     }
 };
+
+if (process.env.NODE_ENV === 'production') {
+    config.plugins.push(
+        new webpack.optimize.UglifyJsPlugin({
+            debug: true,
+            minimize: true,
+            sourceMap: false,
+            output: {
+                comments: false
+            },
+            compressor: {
+                warnings: false
+            }
+        })
+    )
+}
+
+module.exports = config;
