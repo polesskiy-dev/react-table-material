@@ -4,7 +4,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const config = {
     entry: {
-        bundle: ['./lib/index']
+        bundle: ['./index']
     },
     output: {
         path: path.resolve('./dist'),

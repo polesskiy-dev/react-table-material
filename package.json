@@ -1,11 +1,11 @@
 {
-  "name": "react-table-panel",
-  "version": "0.0.1",
+  "name": "@polesskyi/react-table-panel",
+  "version": "0.0.2",
   "description": "Simple react redux table panel to fetch and display data from RESR api",
   "main": "index.js",
   "scripts": {
     "start": "npm run build && npm run serve | npm run dev",
-    "serve": "./node_modules/.bin/http-server -p 8080",
+    "serve": "http-server -p 8080",
     "dev": "webpack-dev-server --hot --colors --inline --port 8090",
     "build": "webpack --config webpack.config.js --progress --profile"
   },
@@ -58,5 +58,13 @@
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "webpack": "^1.8.4"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/polesskiy-dev/react-table-material.git"
+  },
+  "bugs": {
+    "url": "https://github.com/polesskiy-dev/react-table-material/issues"
+  },
+  "homepage": "https://github.com/polesskiy-dev/react-table-material#readme"
 }
