@@ -1,6 +1,6 @@
 {
   "name": "@polesskyi/react-table-panel",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "Simple react redux table panel to fetch and display data from RESR api",
   "main": "index.js",
   "scripts": {

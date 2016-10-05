@@ -4,10 +4,10 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const config = {
     entry: {
-        bundle: ['./index']
+        index: ['./lib/index']
     },
     output: {
-        path: path.resolve('./dist'),
+        path: path.resolve('./'),
         filename: '[name].js'
     },
     eslint: {
@@ -41,14 +41,8 @@ const config = {
                 loader: "style!css!less"
             },
             //webfonts
-            {
-                test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-                loader: "url-loader?limit=10000&minetype=application/font-woff"
-            },
-            {
-                test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-                loader: "file-loader"
-            }
+            { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&minetype=application/font-woff" },
+            { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" }
         ]
     },
 
@@ -58,11 +52,7 @@ const config = {
             'process.env': {
                 'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
             }
-        }),
-        // new ExtractTextPlugin('css/bundle.css'),
-        // for production
-
-
+        })
     ],
 
     node: {
